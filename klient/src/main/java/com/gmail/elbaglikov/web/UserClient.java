@@ -20,12 +20,12 @@ public class UserClient {
 
     public void getXML () {
         //TODO
-        final String uri = "http://localhost:8080/TarifInformServer_war_exploded/users";
+        final String URI = "http://localhost:8080/server_war_exploded/users";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                uri,
+                URI,
                 HttpMethod.GET,
                 entity,
                 String.class);

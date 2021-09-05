@@ -48,7 +48,7 @@ public class UserClientTest {
 
     @Test
     public void getXMLTest() throws IOException, URISyntaxException {
-        final String uri = "http://localhost:8080/users";
+        final String uri = "http://localhost:8080/server_war_exploded/users";
         String xmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><users><user><id>100000</id><balance>1000</balance><name>Ivan Ivanov</name><tariff>fly on the internet</tariff></user><user><id>100001</id><balance>2000</balance><name>Ivan Alexeenko</name><tariff>fly on the internet</tariff></user><user><id>100002</id><balance>6000</balance><name>Alex Ivanov</name><tariff>fly on the internet</tariff></user><user><id>100003</id><balance>3000</balance><name>Ivan Ivanov</name><tariff>fly on the internet</tariff></user><user><id>100004</id><balance>2000</balance><name>Alex Alexeenko</name><tariff>all inclusive</tariff></user></users>";
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI(uri)))

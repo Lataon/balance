@@ -14,10 +14,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.List;
 
 @Service
@@ -51,7 +48,7 @@ public class UserService {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
             StringWriter sw = new StringWriter();
-            Source xslt = new StreamSource(new FileInputStream("src/main/resources/balance-transformer.xsl"));
+            Source xslt = new StreamSource(getClass().getResourceAsStream("/balance-transformer.xsl"));
             Transformer transformer = factory.newTransformer(xslt);
             Source xml = new StreamSource(new StringReader(xmlStr));
             transformer.transform(xml, new StreamResult(sw));
@@ -61,13 +58,18 @@ public class UserService {
 
             deleteAll();
             saveAll(users.getUsers());
-        } catch (FileNotFoundException | TransformerException | JAXBException e) {
+        } catch (TransformerException | JAXBException e) {
             LOGGER.error("problem with transform xml", e);
+            //TODO
             throw new RuntimeException("problem with transform xml", e);
         }
     }
 
     public void deleteAll() {
         userRepository.deleteAll();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(UserRepository.class.getResourceAsStream("/balance-transformer.xsl"));
     }
 }
