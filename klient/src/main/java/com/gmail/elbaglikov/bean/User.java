@@ -7,6 +7,8 @@ import org.springframework.data.couchbase.core.mapping.Document;
 
 import java.util.Objects;
 
+import static com.gmail.elbaglikov.Constants.DELIMETER_CSV;
+
 @Document
 public class User {
 
@@ -21,6 +23,10 @@ public class User {
     public User(int id, int balance) {
         this.id = id;
         this.balance = balance;
+    }
+
+    public User (String[] csv) {
+        this(Integer.parseInt(csv[0]), balanceStrToInt(csv[1]));
     }
 
     public int getId() {
@@ -43,9 +49,14 @@ public class User {
         return String.format("%d.%02d", balance /100, balance %100);
     }
 
+    private static int balanceStrToInt(String str) {
+        String[] arr = str.split("\\.");
+        return Integer.parseInt(arr[0])*100 + Integer.parseInt(arr[1]);
+    }
+
     @Override
     public String toString() {
-        return id + ";" + UserToStr();
+        return id + DELIMETER_CSV + UserToStr();
     }
 
     @Override

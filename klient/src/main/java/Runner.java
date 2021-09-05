@@ -26,7 +26,8 @@ public class Runner implements Runnable{
 
             appCtx.load( "spring/couchbase.xml",
                     "spring/spring-app.xml",
-                    "spring/spring-mvc.xml");
+                    "spring/spring-mvc.xml",
+                    "spring/amqp.xml");
             appCtx.refresh();
             UserClient userClient = appCtx.getBean(UserClient.class);
             UserService userService = appCtx.getBean(UserService.class);
@@ -34,7 +35,7 @@ public class Runner implements Runnable{
             GetDataFromServerRunner getDataFromServerRunner = new GetDataFromServerRunner(userClient, n);
             Thread dateFromServerGetter = new Thread(getDataFromServerRunner);
 
-            SendMessageRunner sendMessageRunner = new SendMessageRunner(userService, m, k);
+            SendMessageRunner sendMessageRunner = new SendMessageRunner(userService, m, k, appCtx);
             Thread messageSender = new Thread(sendMessageRunner);
             dateFromServerGetter.start();
             messageSender.start();
