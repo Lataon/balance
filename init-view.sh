@@ -1,0 +1,1 @@
+curl -X PUT -H 'Content-Type: application/json' http://balance:password@localhost:8092/balance/_design/user -d @user.ddoc

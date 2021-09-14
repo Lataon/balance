@@ -1,0 +1,1 @@
+{"views":{"getByBalance":{"map":"function (doc, meta) {\n if (doc._class == \"com.gmail.elbaglikov.bean.User\") {\n emit(doc.balance, null);}\n}\n"}, "all":{"map":"function (doc, meta) {\n  emit(meta.id, null); }\n"}}}
